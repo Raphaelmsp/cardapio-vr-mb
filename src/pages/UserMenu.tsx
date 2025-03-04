@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { ShoppingCart, Utensils, Clock, Send, X, Salad } from 'lucide-react';
@@ -311,7 +312,7 @@ export default function UserMenu() {
                   <p className="text-gray-600 mt-1">{dish.description}</p>
                   <button
                     onClick={() => addToCart(dish)}
-                    className="mt-3 w-full px-4 py-2 text-white rounded-md transition-colors bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="mt-3 w-full px-4 py-2 text-white rounded-md transition-colors bg-[#004387] hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                     disabled={!isStoreOpen}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
