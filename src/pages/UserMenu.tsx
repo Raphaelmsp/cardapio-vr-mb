@@ -337,7 +337,7 @@ export default function UserMenu() {
               className="h-10 object-contain"
             />
             <h1 
-              className="text-2xl font-bold text-gray-900 text-center"
+              className="text-2xl sm:text-3xl font-bold text-gray-900 text-center"
               style={{ fontFamily: "'Palace Script MT', cursive" }}
             >
               Restaurante Benito Gomes
