@@ -340,7 +340,7 @@ export default function UserMenu() {
               className="text-2xl sm:text-3xl font-bold text-gray-900 text-center"
               style={{ fontFamily: "'Palace Script MT', cursive" }}
             >
-              Restaurante Benito Gomess
+              Restaurante Benito Gomes
             </h1>
           </div>
           <div className="mt-2 flex items-center justify-center gap-4 text-sm text-gray-600">
