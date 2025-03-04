@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { ShoppingCart, Utensils, Clock, Send, X, Salad } from 'lucide-react';
 import { supabase } from '../lib/supabase';
