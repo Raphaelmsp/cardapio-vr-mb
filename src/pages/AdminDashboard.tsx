@@ -46,7 +46,7 @@ export default function AdminDashboard() {
     image_url: '',
     day_of_week: 1,
   });
-  const [dishType, setDishType] = useState('optional'); // 'main', 'optional', or 'salad'
+  const [dishType, setDishType] = useState('optional');
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
@@ -310,7 +310,7 @@ export default function AdminDashboard() {
                 onChange={(e) =>
                   setSettings({ ...settings, opening_time: e.target.value })
                 }
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#034588] focus:ring-[#034588]"
               />
             </div>
             <div>
@@ -323,13 +323,13 @@ export default function AdminDashboard() {
                 onChange={(e) =>
                   setSettings({ ...settings, closing_time: e.target.value })
                 }
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#034588] focus:ring-[#034588]"
               />
             </div>
           </div>
           <button
             onClick={updateSettings}
-            className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="mt-4 px-4 py-2 bg-[#034588] text-white rounded-md hover:bg-[#023466]"
           >
             Salvar Horário
           </button>
@@ -352,7 +352,7 @@ export default function AdminDashboard() {
                 onChange={(e) =>
                   setNewDish({ ...newDish, name: e.target.value })
                 }
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#034588] focus:ring-[#034588]"
               />
             </div>
             <div>
@@ -365,7 +365,7 @@ export default function AdminDashboard() {
                 onChange={(e) =>
                   setNewDish({ ...newDish, description: e.target.value })
                 }
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#034588] focus:ring-[#034588]"
               />
             </div>
             <div>
@@ -378,7 +378,7 @@ export default function AdminDashboard() {
                 onChange={(e) =>
                   setNewDish({ ...newDish, image_url: e.target.value })
                 }
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#034588] focus:ring-[#034588]"
               />
             </div>
             <div>
@@ -393,7 +393,7 @@ export default function AdminDashboard() {
                     day_of_week: parseInt(e.target.value),
                   })
                 }
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#034588] focus:ring-[#034588]"
               >
                 <option value={1}>Segunda-feira</option>
                 <option value={2}>Terça-feira</option>
@@ -413,7 +413,7 @@ export default function AdminDashboard() {
                   value="main"
                   checked={dishType === 'main'}
                   onChange={() => setDishType('main')}
-                  className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="rounded border-gray-300 text-[#034588] shadow-sm focus:border-[#034588] focus:ring-[#034588]"
                 />
                 <span className="ml-2 text-sm text-gray-600">
                   Prato Principal
@@ -426,7 +426,7 @@ export default function AdminDashboard() {
                   value="optional"
                   checked={dishType === 'optional'}
                   onChange={() => setDishType('optional')}
-                  className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="rounded border-gray-300 text-[#034588] shadow-sm focus:border-[#034588] focus:ring-[#034588]"
                 />
                 <span className="ml-2 text-sm text-gray-600">
                   Prato Opcional
@@ -439,7 +439,7 @@ export default function AdminDashboard() {
                   value="salad"
                   checked={dishType === 'salad'}
                   onChange={() => setDishType('salad')}
-                  className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="rounded border-gray-300 text-[#034588] shadow-sm focus:border-[#034588] focus:ring-[#034588]"
                 />
                 <span className="ml-2 text-sm text-gray-600">
                   Salada
@@ -546,7 +546,7 @@ export default function AdminDashboard() {
             <div className="flex gap-2">
               <button
                 onClick={generatePDF}
-                className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:bg-indigo-300 disabled:cursor-not-allowed"
+                className="flex items-center px-4 py-2 bg-[#034588] text-white rounded-md hover:bg-[#023466] disabled:bg-gray-300 disabled:cursor-not-allowed"
                 disabled={orders.length === 0}
               >
                 <Download className="w-4 h-4 mr-2" />
