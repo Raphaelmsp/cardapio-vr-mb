@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { ShoppingCart, Utensils, Clock, Send, X, Salad } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -50,6 +48,7 @@ export default function UserMenu() {
     const day = new Date().getDay();
     return day === 0 ? 6 : day;
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Input validation functions
   const validateName = (value: string) => {
@@ -183,24 +182,27 @@ export default function UserMenu() {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
+      // Create the order first
       const { data: order, error: orderError } = await supabase
         .from('orders')
-        .insert([
-          {
-            user_name: userName,
-            registration,
-            observations,
-          },
-        ])
+        .insert({
+          user_name: userName,
+          registration,
+          observations: observations || null
+        })
         .select()
         .single();
 
       if (orderError) throw orderError;
+      if (!order) throw new Error('No order data returned');
 
+      // Create order items
       const orderItems = cart.map(item => ({
         order_id: order.id,
-        dish_id: item.id,
+        dish_id: item.id
       }));
 
       const { error: itemsError } = await supabase
@@ -209,14 +211,18 @@ export default function UserMenu() {
 
       if (itemsError) throw itemsError;
 
-      toast.success('Pedido realizado com sucesso!');
+      // Success! Clear the form and cart
+      toast.success('Opção registrada com sucesso!');
       setCart([]);
       setUserName('');
       setRegistration('');
       setObservations('');
       setIsCartOpen(false);
     } catch (error) {
-      toast.error('Erro ao realizar pedido');
+      console.error('Error submitting order:', error);
+      toast.error('Erro ao registrar opção. Por favor, tente novamente.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -312,11 +318,11 @@ export default function UserMenu() {
                   <p className="text-gray-600 mt-1">{dish.description}</p>
                   <button
                     onClick={() => addToCart(dish)}
-                    className="mt-3 w-full px-4 py-2 text-white rounded-md transition-colors bg-[#004387] hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="mt-3 w-full px-4 py-2 text-white rounded-md transition-colors bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
                     disabled={!isStoreOpen}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
-                    Adicionar ao Pedido
+                    Adicionar à Opção
                   </button>
                 </div>
               </div>
@@ -338,7 +344,7 @@ export default function UserMenu() {
               className="h-10 object-contain"
             />
             <h1 
-              className="text-2xl sm:text-3xl font-bold text-gray-900 text-center"
+              className="text-2xl font-bold text-gray-900 text-center"
               style={{ fontFamily: "'Palace Script MT', cursive" }}
             >
               Restaurante Benito Gomes
@@ -365,16 +371,6 @@ export default function UserMenu() {
       <div className="bg-white shadow-sm sticky top-[116px] z-10">
         <div className="max-w-md mx-auto">
           <div className="flex overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            {/* <button
-              onClick={() => setActiveTab('today')}
-              className={`flex-1 py-3 px-4 text-center font-medium text-sm ${
-                activeTab === 'today' 
-                  ? 'text-indigo-600 border-b-2 border-indigo-600' 
-                  : 'text-gray-500'
-              }`}
-            >
-              Hoje
-            </button> */}
             {[1, 2, 3, 4, 5, 6].map((day) => (
               <button
                 key={day}
@@ -429,7 +425,7 @@ export default function UserMenu() {
           <div className="fixed inset-x-0 bottom-0 h-[80vh] bg-white rounded-t-xl shadow-xl overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold">Seu Pedido</h2>
+                <h2 className="text-xl font-bold">Sua Opção</h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
                   className="text-gray-500 hover:text-gray-700"
@@ -492,17 +488,23 @@ export default function UserMenu() {
                     onChange={handleObservationsChange}
                     className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-3"
                     rows={3}
-                    placeholder="Alguma observação sobre seu pedido?"
+                    placeholder="Alguma observação sobre sua opção?"
                   />
                 </div>
 
                 <button
                   onClick={handleSubmitOrder}
-                  disabled={!isStoreOpen || cart.length === 0}
+                  disabled={!isStoreOpen || cart.length === 0 || isSubmitting}
                   className="w-full flex items-center justify-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-5 h-5 mr-2" />
-                  Enviar Pedido
+                  {isSubmitting ? (
+                    <span>Enviando...</span>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5 mr-2" />
+                      Enviar Opção
+                    </>
+                  )}
                 </button>
               </div>
             </div>
