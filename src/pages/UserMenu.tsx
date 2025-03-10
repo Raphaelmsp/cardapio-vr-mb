@@ -368,7 +368,7 @@ export default function UserMenu() {
       </header>
 
       {/* Mobile-style tabs with hidden scrollbar */}
-      <div className="bg-white shadow-sm sticky top-[116px] z-10">
+      <div className="bg-white shadow-sm sticky top-[100px] z-10">
         <div className="max-w-md mx-auto">
           <div className="flex overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {[1, 2, 3, 4, 5, 6].map((day) => (
